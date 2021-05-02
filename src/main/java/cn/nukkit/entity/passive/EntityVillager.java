@@ -13,6 +13,7 @@ import cn.nukkit.inventory.TradeInventory;
 import cn.nukkit.inventory.TradeInventoryRecipe;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.format.FullChunk;
+import cn.nukkit.math.Vector3;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.nbt.tag.ListTag;
 import cn.nukkit.utils.ServerException;
@@ -143,6 +144,14 @@ public class EntityVillager extends EntityCreature implements InventoryHolder, E
     
     public boolean isTrading() {
         return this.dataProperties.getLong(DATA_TRADING_PLAYER_EID) != 0L;
+    }
+
+    @Override
+    public boolean onInteract(Player player, Item item, Vector3 clickedPos) {
+        if (item.getId() == Item.NAME_TAG) {
+            return super.onInteract(player, item, clickedPos);
+        }
+        return this.onInteract(player, item);
     }
     
     @Override
